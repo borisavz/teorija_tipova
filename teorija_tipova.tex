@@ -141,6 +141,65 @@
             \end{itemize}
         \end{columns}
     \end{frame}
+    
+    \begin{frame}{Мутабилност}
+        \begin{itemize}
+            \item Прости типови заузимају мало простора, због чега је њихово складиштење на стеку и у регистрима једноставно
+            \item Креирање копија вредности простих типова је једноставно и брзо
+            \item Сложени типови заузимају далеко више простора и најчешће се складиште на хипу
+            \item Стање мутабилних објеката је могуће мењати и након креирања
+            \item Мутабилност побољшава перформансе, али уноси непредвидивост
+            \begin{itemize}
+                \item имате ли идеју како?
+            \end{itemize}
+            \item Мутабилност утиче на дизајн система типова!
+            \begin{itemize}
+                \item више речи о овоме нешто касније
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Мутабилни објекти}
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/mut0.png}
+        \end{figure}
+    \end{frame}
+    
+    \begin{frame}{Мутабилни објекти}
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/mut1.png}
+        \end{figure}
+    \end{frame}
+    
+    \begin{frame}{Мутабилни објекти}
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/mut2.png}
+        \end{figure}
+    \end{frame}
+    
+    \begin{frame}{Имутабилни објекти}
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/imut0.png}
+        \end{figure}
+    \end{frame}
+    
+    \begin{frame}{Имутабилни објекти}
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/imut1.png}
+        \end{figure}
+    \end{frame}
+    
+    \begin{frame}{Имутабилни објекти}
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/imut2.png}
+        \end{figure}
+    \end{frame}
 
     \begin{frame}{Теорија типова и теорија скупова}
         \begin{itemize}
@@ -186,7 +245,7 @@
             \item За просте типове, конвертибилност је дефинисана правилима система типова
             \item За сложене типове, конвертибилност је релацијом између сложених типова (коју задаје корисник) и/или у односу на садржај (правила дефинише систем типова)
             \begin{itemize}
-                \item Више речи о овоме нешто касније
+                \item више речи о овоме нешто касније
             \end{itemize}
         \end{itemize}
     \end{frame}
@@ -269,12 +328,95 @@
     \begin{frame}{Коваријантност типова}
         \textit{Сложени тип \begin{math}{A\mathord{<}T\mathord{>}}\end{math} је коваријантан у односу на тип параметра \begin{math}T\end{math} уколико важи \begin{math}{A\mathord{<}X\mathord{>} \leq A\mathord{<}Y\mathord{>}}\end{math} за \begin{math}X \leq Y\end{math}}
     \end{frame}
+    
+    \begin{frame}[allowframebreaks]{Варијантност и мутабилност}
+        \begin{itemize}
+            \item Имутабилни низови су очигледно коваријантни у односу на Т
+            \item Проблем: шта се дешава уколико су низови мутабилни?
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{math}
+        A \leq B \leq C
+\newline
+\newline
+a: A[] = [A, A, A]
+\newline
+b: B[] = a
+\newline
+\newline
+b.add(B)
+\newline
+\newline
+\text{Грешка: није могуће сачувати вредност} \newline B\space \text{у објекту типa} A \text{јер не важи} B \leq A\text{!}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/arr0.png}
+        \end{figure}
+        
+        \framebreak
+        
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/arr1.png}
+        \end{figure}
+        
+        \framebreak
+        
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/arr2.png}
+        \end{figure}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Дошло је до грешке приликом извршавања кода
+            \item Систем типова је то морао да спречи!
+            \item Могућа решења:
+            \begin{itemize}
+                \item обавезно копирање низа (имутабилност)
+                \item инваријантност у односу на Т
+            \end{itemize}
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/arr0.png}
+        \end{figure}
+        
+        \framebreak
+        
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/arr11.png}
+        \end{figure}
+        
+        \framebreak
+        
+        \begin{figure}
+            \centering
+            \includegraphics[height=0.7\textheight,keepaspectratio]{images/arr21.png}
+        \end{figure}
+    \end{frame}
 
     \begin{frame}{Структуре}
         \begin{itemize}
             \item Структура садржи именоване вредности (поља) чији тип може бити произвољан тип, укључујући и саму структуру из дефиниције (рекурзија је дозвољена)
             \item Које услове би требало да задовољи структура B како би важило B <= A?
-            \item Подсетник: потребно је обратити пажњу на називе поља и њихове типове
+            \item Проблем: мутабилност
+            \begin{itemize}
+                \item мутабилне структуре такође морају да буду инваријантне у односу на типове поља
+                \item имутабилне структуре могу да буду варијантне
+            \end{itemize}
+            \item Потребно је обратити пажњу на називе поља и њихове типове
             \item Мишљења о томе како би ту пажњу требало обратити су подељена
         \end{itemize}
     \end{frame}
