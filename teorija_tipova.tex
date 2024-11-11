@@ -144,10 +144,29 @@
 
     \begin{frame}{Теорија типова и теорија скупова}
         \begin{itemize}
+            \item Једнакост типова осигурава исправност програма
+            \item Да ли отежава писање програма?
+            \begin{itemize}
+                \item у стварном свету, уочавамо сличност између различитих појмова и облика
+                \item некада су ти појмови довољно слични да можемо да занемаримо разлике
+                \item пример: потребан нам је аутомобил, али нас не занима произвођач
+            \end{itemize}
             \item Тип је појам сродан скупу
             \item Ако постоје подскупови, да ли постоје и подтипови?
             \item Шта описују подскупови, а шта би описивали подтипови?
             \item Релација подтипа је слична релацији подскупа!
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Конвертибилност типова (релација подтипа)}
+        \begin{itemize}
+            \item Кажемо да је \begin{math}A \leq B\end{math} уколико је \begin{math}A\end{math} конвертибилно у \begin{math}B\end{math}
+            \begin{itemize}
+                \item \begin{math}A \leq B\end{math} \textbf{(рефлексивност)}
+                \item \begin{math}A \leq B \wedge B \leq C \Rightarrow A \leq C\end{math} \textbf{(транзитивност)}
+                \item \begin{math}A \leq B \wedge B \leq A \Rightarrow A = B\end{math} \textbf{(антисиметричност)}
+            \end{itemize}
+            \item Релација подтипа је релација парцијалног поретка!
         \end{itemize}
     \end{frame}
 
@@ -261,11 +280,11 @@
     \end{frame}
 
     \begin{frame}{Номинални системи типова}
-        \textit{...}
+        \textit{У номиналном систему типова, релације између сложених типова су задате приликом конструкције типова употребом ознака типова.}
     \end{frame}
 
     \begin{frame}{Структурални системи типова}
-        \textit{...}
+        \textit{У структуралном систему типова, релације између сложених типова се одређују приликом употребе типа, поређењем садржаја очекиваног и употребљеног типа.}
     \end{frame}
 
     \begin{frame}[allowframebreaks]{Структуре (наставак)}
@@ -405,6 +424,191 @@
             \centering
             \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{images/neodredjen_jed.png}
         \end{figure}
+    \end{frame}
+    
+    \begin{frame}[allowframebreaks]{Унификација типова (поступак)}
+    \begin{math}
+A,B, C
+\newline
+List\mathord{<}T\mathord{>}
+\newline
+Map\mathord{<}K, V\mathord{>}
+\newline
+func: (a: T1, b: T2, c: List\mathord{<}T1\mathord{>}, d: List\mathord{<}T2\mathord{>}) \to Map\mathord{<}T1, T2\mathord{>}
+\newline
+\newline
+a = A
+\newline
+b = B
+\newline
+c = List\mathord{<}A\mathord{>}
+\newline
+d = List\mathord{<}B\mathord{>}
+\newline
+\newline
+x = func(a, b, c, d)
+\newline
+type(x) = ? 
+\end{math}
+        \framebreak
+        
+        \begin{math}
+A = T1
+\newline
+B = T2
+\newline
+List\mathord{<}A\mathord{>} = List\mathord{<}T1\mathord{>}
+\newline
+List\mathord{<}B\mathord{>} = List\mathord{<}T2\mathord{>}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+T1 = A
+\newline
+T2 = B
+\newline
+\newline
+List = List
+\newline
+A = T1
+\newline
+List = List
+\newline
+B = T2
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+T1 = A
+\newline
+T2 = B
+\newline
+\newline
+\text{Систем је одређен, унификација је успешна!}
+\end{math}
+
+\framebreak
+
+\begin{math}
+A,B, C
+\newline
+List\mathord{<}T\mathord{>}
+\newline
+Map\mathord{<}K, V\mathord{>}
+\newline
+func: (a: T1, b: T2, c: List\mathord{<}T1\mathord{>}, d: List\mathord{<}T2\mathord{>}) \to Map\mathord{<}T1, T2\mathord{>}
+\newline
+\newline
+a = A
+\newline
+b = B
+\newline
+c = List\mathord{<}A\mathord{>}
+\newline
+d = List\mathord{<}A\mathord{>}
+\newline
+\newline
+x = func(a, b, c, d)
+\newline
+type(x) = ? 
+\end{math}
+        \framebreak
+        
+        \begin{math}
+A = T1
+\newline
+B = T2
+\newline
+List\mathord{<}A\mathord{>} = List\mathord{<}T1\mathord{>}
+\newline
+List\mathord{<}A\mathord{>} = List\mathord{<}T2\mathord{>}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+T1 = A
+\newline
+T2 = B
+\newline
+\newline
+List = List
+\newline
+A = T1
+\newline
+List = List
+\newline
+A = T2
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+T1 = A
+\newline
+T2 = B, T2 = A
+\newline
+\newline
+\text{Систем је немогућ, унификација је неуспешна!}
+        \end{math}
+        
+\framebreak
+        
+        \begin{math}
+A,B, C
+\newline
+List\mathord{<}T\mathord{>}
+\newline
+Map\mathord{<}K, V\mathord{>}
+\newline
+func: (a: T1, b: T2, c: List\mathord{<}T1\mathord{>}, d: List\mathord{<}T2\mathord{>}) \to Map\mathord{<}T1, T2\mathord{>}
+\newline
+\newline
+a = A
+\newline
+b = B
+\newline
+c = List\mathord{<}A\mathord{>}
+\newline
+d = Map\mathord{<}A, B\mathord{>}
+\newline
+\newline
+x = func(a, b, c, d)
+\newline
+type(x) = ? 
+\end{math}
+        \framebreak
+        
+        \begin{math}
+A = T1
+\newline
+B = T2
+\newline
+List\mathord{<}A\mathord{>} = List\mathord{<}T1\mathord{>}
+\newline
+Map\mathord{<}A, B\mathord{>} = List\mathord{<}T2\mathord{>}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+T1 = A
+\newline
+T2 = B
+\newline
+\newline
+List = List
+\newline
+A = T1
+\newline
+Map = List
+\newline
+\newline
+\text{Унификција два различита сложена типа није могућа!}
+        \end{math}
     \end{frame}
 
     \begin{frame}{Унификација и релација подтипа}
