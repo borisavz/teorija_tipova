@@ -252,7 +252,7 @@
     \begin{frame}[allowframebreaks]{Шта одређује конвертибилност типова?}
         \begin{itemize}
             \item Правила која дефинишу конвертибилност типова су одлука дизајнера система типова
-            \item Главни водич је тип А мора да садржи све вредности које подржава Б као и да приликом имплицитне конверзије не долази до губитка података
+            \item Главни водич је тип \begin{math}A\end{math} мора да садржи све вредности које подржава \begin{math}B\end{math} као и да приликом имплицитне конверзије не долази до губитка података
             \begin{itemize}
                 \item Релативан појам: скуп целих бројева је подскуп скупа реалних бројева у математици, док је у програмирању могућ губитак приликом претварања целобројне вредности у вредност са покретним зарезом
                 \item Неки програмски језици ово игноришу, док други ово сматрају за грешку и захтевају експлицитну конверзију целобројног типа
@@ -1037,6 +1037,118 @@ R \leq Y
         Уочавамо да иако су два различита типа прослеђења на месту на којем је параметар \begin{math}X\end{math}, гледамо који тип задовољава оба ограничења.
         \newline\newline
         Тако параметар \begin{math}X\end{math} постаје јединствено одређен тип!
+        
+        \framebreak
+        
+        \begin{math}
+A(p_1: List\mathord{<}X\mathord{>},\;p_2: Map\mathord{<}X, Y\mathord{>})\to Y
+\newline
+a_1 = LinkedList\mathord{<}Q\mathord{>}
+\newline
+a_2 = ArrayList\mathord{<}K\mathord{>}
+\newline
+\newline
+res = A(a_1, a_2)
+\newline
+X, Y = \;?
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+type(a_1) \leq type(p_1)
+\newline
+type(a_2) \leq type(p_2)
+\newline
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList\mathord{<}Q\mathord{>} \leq List\mathord{<}X\mathord{>}
+\newline
+ArrayList\mathord{<}K\mathord{>} \leq Map\mathord{<}X, Y\mathord{>}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList \leq List
+\newline
+Q \leq X
+\newline
+ArrayList \leq Map
+\newline
+        \end{math}
+        
+        Дошло је до грешке!
+        \newline\newline
+        Није могуће унификовати два сложена типа чији конструктор типова није сродан!
+        
+        \framebreak
+        
+        \begin{math}
+A(p_1: List\mathord{<}X\mathord{>},\;p_2: Map\mathord{<}X, Y\mathord{>})\to Y
+\newline
+a_1 = LinkedList\mathord{<}Q\mathord{>}
+\newline
+a_2 = HashMap\mathord{<}K, P\mathord{>}
+\newline
+\newline
+res = A(a_1, a_2)
+\newline
+X, Y = \;?
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+type(a_1) \leq type(p_1)
+\newline
+type(a_2) \leq type(p_2)
+\newline
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList\mathord{<}Q\mathord{>} \leq List\mathord{<}X\mathord{>}
+\newline
+HashMap\mathord{<}K, P\mathord{>} \leq Map\mathord{<}X, Y\mathord{>}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList \leq List
+\newline
+Q \leq X
+\newline
+HashMap \leq Map
+\newline
+K = X
+\newline
+P \leq Y
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+Q \leq X
+\newline
+K = X
+\newline
+R \leq Y
+\newline
+        \end{math}
+        
+        Унификација је неуспешна!
+        \newline\newline
+        Не постоји тип који задовољава ограничења која се захтевају од параметра \begin{math}X\end{math}.
+        \newline\newline
+        Интервал решења \begin{math}X\end{math} није исправан јер типови \begin{math}Q\end{math} и \begin{math}K\end{math} нису у никаквој релацији.
+        \newline\newline
+        Доња граница интервала мора да буде мања или једнака горњој граници како би интервал био исправан.
     \end{frame}
     
     \begin{frame}[allowframebreaks]{Закључак}
