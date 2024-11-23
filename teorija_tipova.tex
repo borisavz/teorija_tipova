@@ -142,7 +142,27 @@
         \end{columns}
     \end{frame}
     
-    \begin{frame}{Мутабилност}
+    \begin{frame}[allowframebreaks]{Мутабилност}
+        \begin{itemize}
+            \item Мутабилност је појам који постоји у рачунарству, али не постоји у математици
+            \item Математика познаје само вредности
+            \item Вредности могу да припадају скуповима и променљиве могу да имају одређену вредност
+            \item Вредности које припадају скупу су унапред задате дефиницијом скупа
+            \item Међутим, природа \textbf{променљивости} саме вредности није дефинисана!
+            \item Сматра се да је сама вредност \textbf{целовита} и \textbf{непроменљива}, док је могуће да променљива има различите вредности!
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Рачунарство такође познаје појам променљиве и вредности, али уводи и једно својство које сведочи о променљивости саме вредности
+            \item Речником рачунарства, вредности у математици су имутабилне
+            \item Више променљивих може да показује на исту вредност (показивачи), због чега измена саме вредности постаје видљива преко различитих променљивих!
+            \item У рачунарству постоји ограничење задато хардвером (и у крајњој граници, законима физике) које захтева увођење оваквог својства
+        \end{itemize}
+        
+        \framebreak
+        
         \begin{itemize}
             \item Прости типови заузимају мало простора, због чега је њихово складиштење на стеку и у регистрима једноставно
             \item Креирање копија вредности простих типова је једноставно и брзо
@@ -780,6 +800,52 @@ Map = List
             \item Додатно: решење постоји уколико је интервал правило одређен
             \item Правила за свођење израза који садрже сложене типове у изразе који садрже просте типове и параметре су приблжно иста
             \item Додатно: потребно је обратити пажњу на варијатност типова у односу на одређени параметар јер утиче на смер релације подтипа!
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}[allowframebreaks]{Закључак}
+        \begin{itemize}
+            \item Као покушај налажења заједничког језика разумљивог и рачуанрима и људима, настали су виши програмски језици
+            \item Додатна замисао је била аутоматска провера исправности програма
+            \item Једнакост између очекиваног и обезбеђеног типа је била довољан услов да се спречи неисправна употреба вредности у програму
+            \item Како појмови у природи показују сличност, замисао је била представити ту сличност кроз релацију подтипа
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Сложени типови су неопходни како би се описале појаве из природе, као и појаве из света рачунарства
+            \item Релација подтипа код сложених типова зависи од конструктора типова и од садржаја самих типова
+            \item За неке типове је природно да релација између садржаних типова директно одговара релацији између сложених типова (коваријантност), док је за одређене типове она супротна (контраваријантност)
+            \item За разлику од математике, рачунарство познаје појам мутабилности
+            \item Иако типови природно показују варијантност, мутабилност је често значајно ограничава
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Релација подтипа не обезбеђује довољну флексибилност за типове попут листа и мапа
+            \item Генерички типови омогућавају да корисник при инстанцирању типа зада прецизнија ограничења типа
+            \item Код генеричких типова, потребно је обавити поступак унификације како би одредили вредности непознатих параметара
+            \item Уколико систем типова подржава само једнакост типова, поступак је једнак решавању система једначина
+            \item Уколико систем типова подржава релацију, поступак је једнак решавању система неједначина
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}[allowframebreaks]{Литература}
+        \begin{itemize}
+            \item Type Checking (Part 1), Keith Schwarz \url{https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/lectures/09/Slides09.pdf}
+            \item Type Checking (Part 2), Keith Schwarz \url{https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/lectures/10/Slides10.pdf}
+            \item Everything You Always Wanted to Know About Type Inference - And a Little Bit More, Robert Griesemer \url{https://go.dev/blog/type-inference}
+            \item Unification in Chalk (part 1), Niko Matsakis \url{https://smallcultfollowing.com/babysteps/blog/2017/03/25/unification-in-chalk-part-1/}
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Type unification rules (The Go Programming Language Specification) \url{https://tip.golang.org/ref/spec\#Type_unification_rules}
+            \item Kotlin type constraints (Kotlin language specification), Marat Akhin \& Mikhail Belyaev \url{https://kotlinlang.org/spec/kotlin-type-constraints.html}
+            \item Type inference (Rust Compiler Development Guide) \url{https://rustc-dev-guide.rust-lang.org/type-inference.html}
         \end{itemize}
     \end{frame}
 \end{document}
