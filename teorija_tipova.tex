@@ -318,6 +318,11 @@
             \begin{itemize}
                 \item аксиоми и правила система типова омогућавају проверу исправности употребе у односу на релацију подтипа
             \end{itemize}
+            \item Релација подтипа је дефинисана само за типове који су инстанцирани од сродних конструктора типова
+             \begin{itemize}
+                \item физика: није могуће поредити килограме и километре
+                \item народски речено: не треба да се мешају бабе и жабе
+            \end{itemize}
         \end{itemize}
     \end{frame}
 
@@ -326,20 +331,20 @@
             \item Низови су најједноставнији пример сложеног типа
             \item У пракси, честа је потреба за обрадом колекције података
             \item Желимо да спречимо складиштење произвољних вредности како би омогућили униформну обраду
-            \item Да ли је услов за униформну обраду једнакост типова () или релација подтипа ()?
+            \item Да ли је услов за униформну обраду једнакост типова (\begin{math}=\end{math}) или релација подтипа (\begin{math}\leq\end{math})?
             \item Можемо ли да упоредимо два типа низова?
         \end{itemize}
 
         \framebreak
 
         \begin{itemize}
-            \item У низ Т[] можемо да ускладиштимо вредност x: X уколико X <= T
+            \item У низ \begin{math}t: T[]\end{math} можемо да ускладиштимо вредност \begin{math}x: X\end{math} уколико \begin{math}X \leq T\end{math}
             \begin{itemize}
-                \item T представља горњу границу типа вредности у низу!
+                \item \begin{math}T\end{math} представља горњу границу типа вредности у низу!
             \end{itemize}
-            \item У променљиву y: A[] можемо да ускладиштимо низ x: B[] уколико је B <= A
+            \item У променљиву \begin{math}y: A[]\end{math} можемо да ускладиштимо низ \begin{math}x: B[]\end{math} уколико је \begin{math}B \leq A\end{math}
             \begin{itemize}
-                \item тип низа је коваријантан у односу на тип Т
+                \item тип низа је коваријантан у односу на тип \begin{math}T\end{math}
                 \item да ли морамо да водимо рачуна и о дужини низа?
             \end{itemize}
         \end{itemize}
@@ -351,7 +356,7 @@
     
     \begin{frame}[allowframebreaks]{Варијантност и мутабилност}
         \begin{itemize}
-            \item Имутабилни низови су очигледно коваријантни у односу на Т
+            \item Имутабилни низови су очигледно коваријантни у односу на \begin{math}T\end{math}
             \item Проблем: шта се дешава уколико су низови мутабилни?
         \end{itemize}
         
@@ -401,7 +406,7 @@ b.add(B)
             \item Могућа решења:
             \begin{itemize}
                 \item обавезно копирање низа (имутабилност)
-                \item инваријантност у односу на Т
+                \item инваријантност у односу на \begin{math}T\end{math}
             \end{itemize}
         \end{itemize}
         
@@ -430,7 +435,7 @@ b.add(B)
     \begin{frame}{Структуре}
         \begin{itemize}
             \item Структура садржи именоване вредности (поља) чији тип може бити произвољан тип, укључујући и саму структуру из дефиниције (рекурзија је дозвољена)
-            \item Које услове би требало да задовољи структура B како би важило B <= A?
+            \item Које услове би требало да задовољи структура \begin{math}s: B\end{math} како би важило \begin{math}B \leq A\end{math}?
             \item Проблем: мутабилност
             \begin{itemize}
                 \item мутабилне структуре такође морају да буду инваријантне у односу на типове поља
@@ -451,7 +456,7 @@ b.add(B)
 
     \begin{frame}[allowframebreaks]{Структуре (наставак)}
         \begin{itemize}
-            \item Интуиција: уколико је вредност B могуће сачувати у a: A уколико важи B <= A, да ли је правило могуће генерализовати и применити на поља структуре?
+            \item Интуиција: уколико је вредност типа \begin{math}B\end{math} могуће сачувати у \begin{math}a: A\end{math} уколико важи \begin{math}B \leq A\end{math}, да ли је правило могуће генерализовати и применити на поља структуре?
             \item Структуре су коваријантне у односу на тип појединачних поља
             \begin{itemize}
                 \item поредак важи искључиво за иста поља (поља истог имена)
@@ -473,7 +478,7 @@ b.add(B)
         \begin{itemize}
             \item Тип функције је сложени тип који се састоји од типа параметера и типа повратне вредности
             \item Не треба мешати тип функције и тип повратне вредности функције!
-            \item У језицима у којима функције представљају грађане првог реда, функције је могуће чувати у променљивама и вратити као тип израза
+            \item У језицима у којима функције представљају \textit{грађане првог реда}, функције је могуће чувати у променљивама и вратити као тип израза
             \item Како можемо да дефинишемо релацију поретка?
             \item Да ли је тип функције боље посматрати и описивати номиналним или структуралним приступом?
         \end{itemize}
@@ -490,15 +495,40 @@ b.add(B)
 
         \begin{itemize}
             \item Прослеђивање аргумената (конкретне вредности које се додељују параметрима) приликом позива фунцкије је такође једнако додели вредности
-            \item Нека су A и B типови функција, а a и b променљиве
-            \item Нека су типови свих параметара B подтипови параметара A
-            \item Покушајмо да B доделимо у a и извршимо позив функције
+            \item Нека су \begin{math}A\end{math} и \begin{math}B\end{math} типови функција, а \begin{math}a\end{math} и \begin{math}b\end{math} променљиве
+            \item Нека су типови свих параметара \begin{math}B\end{math} подтипови параметара \begin{math}A\end{math}
+            \item Покушајмо да \begin{math}B\end{math} доделимо у \begin{math}a\end{math} и извршимо позив функције
         \end{itemize}
+        
+        \framebreak
+        
+        \begin{math}
+X 
+\newline
+Y \le X
+\newline
+Z \le X
+\newline
+A: (p: X) \to X
+\newline
+B: (p: Y) \to Z
+\newline
+\newline
+a: A = some\_B\_func
+\newline
+a(new\;Z)
+\newline
+\newline
+        \end{math}
+Грешка!
 
+\begin{math}some\_B\_func\end{math} очекује \begin{math}type(p) \leq Y\end{math}, али \begin{math}A\end{math} дозвољава \begin{math}type(p) \leq X\end{math}!
+
+Тип \begin{math}Z\end{math} не задовољава услов задат од стране \begin{math}some\_B\_func\end{math}!
         \framebreak
 
         \begin{itemize}
-            \item Интуиција (други покушај): како би спречили прослеђивање типа са којим функција не може да ради, неопходно је да аргументи подтипа функције буду у >= релацији у односу на аргументе надтипа функције
+            \item Интуиција (други покушај): како би спречили прослеђивање типа са којим функција не може да ради, неопходно је да аргументи подтипа функције буду у \begin{math}\geq\end{math} релацији у односу на аргументе надтипа функције
             \item Важи правило које је супротно од коваријантности
         \end{itemize}
     \end{frame}
@@ -508,7 +538,41 @@ b.add(B)
     \end{frame}
 
     \begin{frame}{Функције (други покушај)}
-        ..
+        \begin{math}
+X
+\newline
+Y \le X
+\newline
+Z \le X
+\newline
+Q \le Y
+\newline
+A: (p: Y) \to X
+\newline
+B: (p: X) \to Z
+\newline
+\newline
+a: A = some\_B\_func
+\newline
+a(new\;Q)
+\newline
+\newline
+        \end{math}
+Релација подтипа је транзитивна!
+
+За сваки тип \begin{math}T\end{math} за који важи \begin{math}T \leq A\end{math} такође важи \begin{math}T \leq B\end{math} уколико \begin{math}A \leq B\end{math} (односно \begin{math}B \geq A\end{math}).
+    \end{frame}
+    
+    \begin{frame}{Функције (закључак)}
+        \begin{itemize}
+            \item Функције су коваријантне у односу на тип повратне вредности и контраваријантне у односу на типове параметара
+            \item Вредност функције је заправо програмски код који она садржи
+            \item Како ово није могуће у току извршавања програма, можемо функције да сматрамо имутабилним
+            \item У теорији, можемо да слободно користимо варијантност у релацији подтипа
+            \item У пракси, програмски језици често сматрају функције инваријантним у односу на типове параметара
+            \item Овиме се олакшава имплементација, а исправност се не крши јер је инваријантност \textit{строжа} од варијантности!
+            \item Доста програмских језика погрешно сматра функције коваријантним у односу на типове параметара! 
+        \end{itemize}
     \end{frame}
 
     \begin{frame}{Генерички типови}
@@ -794,13 +858,185 @@ Map = List
             \item Поступак можемо да посматрамо као генерализовану верзију претходног поступка
             \item Општа правила:
             \begin{itemize}
-                \item два проста типа је могуће унификовати уколико A <= B
-                \item два сложена типа је могуће унификовати уколиок A <= B и уколико је могуће унификовати све типове од којих се састоје
+                \item два проста типа је могуће унификовати уколико пружени тип задовољава релацију у односу на тражени тип у датом контексту употребе (\begin{math}\leq, \geq, =\end{math})
+                \item два сложена типа је могуће унификовати уколико пружени тип задовољава релацију у односу на тражени тип у датом контексту употребе и уколико је могуће унификовати све типове од којих се састоје
             \end{itemize}
             \item Додатно: решење постоји уколико је интервал правило одређен
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Подсетник: релација подтипа (\begin{math}\leq, \geq\end{math}) је антисиметрична, а релација једнакости (\begin{math}=\end{math}) симетрична!
+            \item Због тога је потребно разликовати пружени и тражени тип
+            \item Додела вредности у променљиву захтева \begin{math}\leq\end{math} зависност
+            \item Прослеђивање вредности генеричком параметру захтева \begin{math}\leq, \geq, =\end{math} у зависности од варијантности
             \item Правила за свођење израза који садрже сложене типове у изразе који садрже просте типове и параметре су приблжно иста
             \item Додатно: потребно је обратити пажњу на варијатност типова у односу на одређени параметар јер утиче на смер релације подтипа!
         \end{itemize}
+        
+        \framebreak
+        
+        \begin{math}
+List\mathord{<}T\mathord{>},\;\text{коваријантно у односу на} \;T
+\newline
+Map\mathord{<}K, V\mathord{>},\;\text{инваријантно у односу на} \;K,\newline\text{коваријантно у односу на} \;V
+\newline
+\newline
+ArrayList \leq List
+\newline
+LinkedList \leq List
+\newline
+HashMap \leq Map
+\newline
+OrderedHashMap \leq Map
+\newline
+\newline
+Q, P, R
+\newline
+Q \leq P \leq R
+\newline
+\newline
+K, L, M
+\newline
+K \leq L \leq M
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+A(p_1: List\mathord{<}X\mathord{>},\;p_2: Map\mathord{<}X, Y\mathord{>})\to Y
+\newline
+a_1 = LinkedList\mathord{<}Q\mathord{>}
+\newline
+a_2 = HashMap\mathord{<}Q, P\mathord{>}
+\newline
+\newline
+res = A(a_1, a_2)
+\newline
+X, Y = \;?
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+type(a_1) \leq type(p_1)
+\newline
+type(a_2) \leq type(p_2)
+\newline
+        \end{math}
+        
+        Прослеђивање аргумента функцији захтева да пружени тип буде подтип траженог типа (\begin{math}\leq\end{math}).
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList\mathord{<}Q\mathord{>} \leq List\mathord{<}X\mathord{>}
+\newline
+HashMap\mathord{<}Q, P\mathord{>} \leq Map\mathord{<}X, Y\mathord{>}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList \leq List
+\newline
+Q \leq X
+\newline
+HashMap \leq Map
+\newline
+Q = X
+\newline
+P \leq Y
+\newline
+        \end{math}
+        
+        Приликом свођења на простији облик, сложени типови су задржали релацију подтипа (\begin{math}\leq\end{math}).
+        \newline\newline
+        Код параметара који су коваријантни, услов је да задовољавају релацију подтипа (\begin{math}\leq\end{math}).
+        \newline\newline
+        Код параметара који су инваријантни, услов је да задовољавају релацију једнакости (\begin{math}=\end{math}).
+        
+        \framebreak
+        
+        \begin{math}
+Q \leq X
+\newline
+Q = X
+\newline
+P \leq Y
+\newline
+        \end{math}
+        
+        Унификација је успешна!
+        \newline\newline
+        Познати типови су задовољили задата ограничења, а интервал решења непознатих типова је исправан.
+        \newline\newline
+        Из интервала по потреби бирамо горњу или доњу границу (задаје се као додатно ограничење).
+        
+        \framebreak
+        
+        \begin{math}
+A(p_1: List\mathord{<}X\mathord{>},\;p_2: Map\mathord{<}X, Y\mathord{>})\to Y
+\newline
+a_1 = LinkedList\mathord{<}Q\mathord{>}
+\newline
+a_2 = HashMap\mathord{<}P, R\mathord{>}
+\newline
+\newline
+res = A(a_1, a_2)
+\newline
+X, Y = \;?
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+type(a_1) \leq type(p_1)
+\newline
+type(a_2) \leq type(p_2)
+\newline
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList\mathord{<}Q\mathord{>} \leq List\mathord{<}X\mathord{>}
+\newline
+HashMap\mathord{<}P, R\mathord{>} \leq Map\mathord{<}X, Y\mathord{>}
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+LinkedList \leq List
+\newline
+Q \leq X
+\newline
+HashMap \leq Map
+\newline
+P = X
+\newline
+R \leq Y
+\newline
+        \end{math}
+        
+        \framebreak
+        
+        \begin{math}
+Q \leq X
+\newline
+P = X
+\newline
+R \leq Y
+\newline
+        \end{math}
+        
+        Унификација је успешна!
+        \newline\newline
+        Уочавамо да иако су два различита типа прослеђења на месту на којем је параметар \begin{math}X\end{math}, гледамо који тип задовољава оба ограничења.
+        \newline\newline
+        Тако параметар \begin{math}X\end{math} постаје јединствено одређен тип!
     \end{frame}
     
     \begin{frame}[allowframebreaks]{Закључак}
