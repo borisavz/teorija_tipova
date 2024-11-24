@@ -1172,6 +1172,61 @@ R \leq Y
         \end{figure}
     \end{frame}
     
+    \begin{frame}[allowframebreaks]{Имплементација}
+        \begin{itemize}
+            \item Приказани модел тражења интервала решења преко преклапања решења на оси је погодан за разумевање од стране људи
+            \item Могуће га је имплементирати као алгоритам, али приказани облик није најпогоднији
+            \item Уместо накнадног тражења интервала из ограничења, једноставније је интервал тражити у лету
+            \item Подсетник: решење има горњу и доњу границу
+            \item Ограничење које смо уврстили у интервал можемо да уклонимо из скупа нерешених ограничења
+            \item Унификација је успешна уколико су сва ограничења разрешена успешно
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Нека је \begin{math}X\end{math} непознат тип, а \begin{math}[lower, upper]\end{math} интервал решења
+            \item Интервал је исправан уколико важи \begin{math}lower \leq upper\end{math}
+            \item Горња или доња граница могу да недостају
+            \item У решавању бројчаних неједначина крајње границе интервала су \begin{math}+\infty\end{math} и \begin{math}-\infty\end{math}
+            \item У неједначинама типова, обиласком хијерархије типова се проналазе доња и горња граница у складу са релацијом подтипа
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Ограничење \begin{math}X \geq T\end{math}:
+            \begin{itemize}
+                \item како би интервал био исправан, мора да важи \begin{math}T \leq upper\end{math}
+                \item уколико \begin{math}lower\end{math} нема вредност, доња граница добија нову вредност \begin{math}lower = T\end{math}
+                \item уколико \begin{math}T \leq lower\end{math}, доња граница задржава стару вредност
+                \item уколико \begin{math}T \geq lower\end{math}, доња граница добија нову вредност \begin{math}lower = T\end{math}
+            \end{itemize}
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Ограничење \begin{math}X \leq T\end{math}:
+            \begin{itemize}
+                \item како би интервал био исправан, мора да важи \begin{math}T \geq lower\end{math}
+                \item уколико \begin{math}upper\end{math} нема вредност, горња граница добија нову вредност \begin{math}upper = T\end{math}
+                \item уколико \begin{math}T \geq upper\end{math}, горња граница задржава стару вредност
+                \item уколико \begin{math}T \leq upper\end{math}, горња граница добија нову вредност \begin{math}upper = T\end{math}
+            \end{itemize}
+        \end{itemize}
+        
+        \framebreak
+        
+        \begin{itemize}
+            \item Проблем: како уврстити ограничење \begin{math}=\end{math}?
+            \item Подсетник: релација подтипа је антисиметрична (\begin{math}A \leq B \wedge B \leq A \Rightarrow A = B\end{math})!
+            \item Уместо ограничења \begin{math}A = B\end{math} уводимо пар ограничења: \begin{math}A \leq B\end{math} и \begin{math}B \leq A\end{math}
+            \item У пракси, ово се ради у једном кораку
+            \item Интервал тражимо по правилима дефинисаним за ограничења \begin{math}\leq\end{math} и \begin{math}\geq\end{math}
+        \end{itemize}
+    \end{frame}
+    
     \begin{frame}[allowframebreaks]{Закључак}
         \begin{itemize}
             \item Као покушај налажења заједничког језика разумљивог и рачуанрима и људима, настали су виши програмски језици
